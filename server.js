@@ -8,7 +8,6 @@ import routes from './src/routes/index.js';
 import { errorHandler, notFound, apiLimiter } from './src/middleware/index.js';
 import { startScheduledJobs } from './src/jobs/scheduledJobs.js';
 
-
 validateEnv();
 
 const app = express();
@@ -17,7 +16,10 @@ app.use(helmet());
 app.use(compression());
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com'] 
+    ? [
+        'https://mgnrega-frontend-six.vercel.app',
+        'https://mgnrega-frontend-*.vercel.app'
+      ] 
     : ['http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
 }));
@@ -57,6 +59,5 @@ const startServer = async () => {
     process.exit(1);
   }
 };
-
 
 startServer();
